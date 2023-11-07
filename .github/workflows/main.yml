@@ -12,17 +12,17 @@ on:
   workflow_dispatch:
 
 env:
-  DEPLOY_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
+  deployment_environment: ${{ github.ref == 'refs/heads/main' && 'Production' || 'Development' }}
 
 jobs:
     TestJob:
       name: 'Deployment to Environment'
       runs-on: ubuntu-latest
-      environment: ${{env.DEPLOY_ENVIRONMENT}}
+      environment: ${{ env.deployment_environment }}
       steps:
         # Runs a set of commands using the runners shell
         - name: Run a multi-line script
           run: |
-            echo $DEPLOY_ENVIRONMENT
+            echo $deployment_environment
             echo Secret value is : ${{ secrets.MY_SECRET }}
             echo Variable value is : ${{ vars.MY_VAR }}
